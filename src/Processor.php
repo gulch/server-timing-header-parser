@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ServerTimingHeaderParser;
+namespace gulch\ServerTimingHeaderParser;
 
 use function count;
 use function explode;
@@ -12,7 +12,7 @@ use function trim;
 class Processor
 {
     /* 
-     * parse Server-Timing header(s)
+     * process Server-Timing header
      * https://www.w3.org/TR/server-timing
      * 
      * example -> Server-Timing: miss,db;dur=53,app;dur=47.2,cache;desc="Cache Read";dur=23.2
@@ -31,16 +31,16 @@ class Processor
             $timing['name'] = $params[0];
 
             for ($i = 1, $c = count($params); $i < $c; ++$i) {
-                [$paramName, $paramValue] = explode('=', $params[$i]);
+                [$param_name, $param_value] = explode('=', $params[$i]);
 
-                $paramName = trim($paramName);
+                $param_name = trim($param_name);
 
-                if (!$paramName) continue;
+                if (!$param_name) continue;
 
-                $paramValue = trim($paramValue);
-                $paramValue = trim($paramValue, '"');
+                $param_value = trim($param_value);
+                $param_value = trim($param_value, '"');
 
-                $timing[$paramName] = floatval($paramValue);
+                $timing[$param_name] = floatval($param_value);
             }
 
             $result_array[] = $timing;
