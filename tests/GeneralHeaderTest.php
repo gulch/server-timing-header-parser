@@ -7,7 +7,7 @@ use gulch\ServerTimingHeaderParser\Processor;
 
 class GeneralHeaderTest extends TestCase
 {
-    public function testGeneralHeader()
+    public function testGeneralHeader(): void
     {
         $processor = new Processor();
 
